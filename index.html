@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+</head>
+<style>
+    /* Style the complete page */
+    body {
+        background-color: #e8eaf6;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    /* Style the game box */
+    .container {
+        background-color: white;
+        width: 350px;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Style the heading */
+    h1 {
+        color: #3949ab;
+        font-size: 28px;
+    }
+
+    /* Style the paragraph text */
+    p {
+        color: #555;
+        font-size: 16px;
+    }
+
+    /* Style the input box */
+    .guess {
+        width: 90%; 
+        padding: 12px;
+        margin: 15px 0;
+        border: 2px solid #c5cae9;
+        border-radius: 8px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    /* Style both buttons */
+    button {
+        background-color: #3949ab;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        margin: 8px;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    /* Change button color when hovering */
+    button:hover {
+        background-color: #283593;
+    }
+
+    /* Style the message */
+    .message {
+        background-color: #f3f4fc;
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    /* Style the attempts counter */
+    .attempts {
+        color: #3949ab;
+        font-weight: bold;
+    }
+
+    /* Style the Play Again button */
+    .playagain {
+        background-color: #2e7d32;
+    }
+
+    .playagain:hover {
+        background-color: #1b5e20;
+    }
+
+</style>
+
+<body>
+    <div class="container">
+        <h1>Number Guessing Game</h1>
+        <p>Guess a number between 1 and 100.</p>
+
+        <input type="number" class="guess" placeholder="Enter your guess">
+
+        <button class="btn">Guess</button>
+
+
+        <p class="message">Your hint will appear here.</p>
+        <p class="attempts"> Attempts: 0</p>
+        <button class="playagain" hidden>Play Again</button>
+    </div>
+    <script>
+        let input = document.querySelector(".guess");
+        let btn = document.querySelector(".btn");
+        let container = document.querySelector(".container");
+        let p = document.querySelector(".message")
+        let attemptsText = document.querySelector(".attempts");
+        let playAgain = document.querySelector(".playagain");
+        let result;
+
+        let attempt = 0;
+        let maxAttempts = 7;
+
+        let min = 1;
+        let max = 100;
+
+
+
+
+        function startGmae() {
+
+
+
+            result = Math.floor(Math.random() * 100) + 1;
+            attempt = 0;
+            input.value = "";
+            input.disabled = false;
+            btn.disabled = false;
+            btn.hidden = false;
+            p.innerText = "Guess a number between 1 and 100.🫩🫩";
+            attemptsText.innerText = "Attempts: 0";
+            playAgain.hidden = true;
+        }
+
+
+
+
+        function userguess() {
+
+            let guess = Number(input.value);
+            if (input.value === "") {
+                p.innerText = "Please enter valid guess 👿👿";
+                alert("Please enter valid guess");
+                return;
+
+
+            }
+            if (guess < min || guess > max) {
+                p.innerText = "invalid";
+                return;
+            }
+            attempt++;
+            attemptsText.innerText = `Attempt-${attempt}`;
+            if (guess === result) {
+                p.innerText = "congratulation🤓🤓";
+                btn.disabled = true;
+                btn.hidden = true;
+                playAgain.hidden = false;
+            }
+            else if (attempt >= maxAttempts) {
+                p.innerText = `Game over! The correct number was😝😝 ${result}.`;
+                input.disabled = true;
+                btn.disabled = true;
+                playAgain.hidden = false;
+            }
+
+            else if (guess < result) {
+                p.innerText = "your guess to low.😁😁";
+            }
+
+            else {
+                p.innerText = "your guess to high.😁😁"
+            }
+
+        };
+        btn.addEventListener("click", userguess);
+        playAgain.addEventListener("click", startGmae);
+
+        startGmae();
+
+
+    </script>
+</body>
+
+</html>
